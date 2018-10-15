@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- open-iconic-bootstrap (icon set for bootstrap) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+
+  <!-- custom css -->
+  <link href="css/imagehive.css" rel="stylesheet">
+
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+  <title>Image Hive - Control Questions</title>
+</head>
+
+<body class="text-center">
+  <noscript>
+		<h1>Please enable JavaScript to continue!</h1>
+	</noscript>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-faded">
+    <a class="navbar-brand" href="export.html"><img src="images/logo_hive.png" width="36"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="export.html">Export data<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="upload.html">Upload images</a>
+        </li>
+        <li class="nav-item">
+                  <a class="nav-link" href="publish.html">Manage publications</a>
+               </li>
+		<li class="nav-item active">
+          <a class="nav-link" href="control-questions.html">Manage control questions</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" name="logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5 text-left">
+    <h4>Add Control Questions</h4>
+    <div class="mb-4">Add control questions to the database. Simply enter labels that would be associated with the image.</div>
+
+    <div class="form2">
+		<!-- Taken from: https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3 -->
+		<div class="input-group">
+			<label class="input-group-btn">
+				<span class="btn btn-add">
+					Browse&hellip; <input type="file" name="file-select" accept=".png, .jpg, .jpeg">
+				</span>
+			</label>
+			<input type="text" class="form-control" name="selectedImage" id="selectedImage" placeholder="Select an image" readonly>
+		</div>
+
+		<div class="question-div" id="question">
+			<hr class="mt-4 mb-4"/>
+
+			<div class="form-group question">
+				<label class="question-no" for="question">Correct Tags</label>
+				<input type="text" class="form-control" name="correctTags" id="correctTags" placeholder="E.g. Hive, images (use commas to separate each tag)">
+			</div>
+			
+			<div class="form-group question">
+				<label class="question-no" for="question">Incorrect Tags</label>
+				<input type="text" class="form-control" name="incorrectTags" id="incorrectTags" placeholder="E.g. Hive, images (use commas to separate each tag)">
+			</div>
+		</div>
+		
+		<button class="btn mt-5" name="submit-question">Submit</button>
+		<a href="control-questions.html" class="btn btn-cancel mt-5">Cancel</a>
+    </div>	
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/add-control-question.js"></script>
+  <script src="js/logout.js"></script>
+	
+	<script>
+	  $(function() {
+		$(document).on('change', ':file', function() {
+		  var input = $(this),
+			numFiles = input.get(0).files ? input.get(0).files.length : 1,
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		  input.trigger('fileselect', [numFiles, label]);
+		});
+
+		$(document).ready(function() {
+		  $(':file').on('fileselect', function(event, numFiles, label) {
+
+			var input = $(this).parents('.input-group').find(':text'),
+			  log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+			if (input.length) {
+			  input.val(log);
+			} else {
+			  if (log) alert(log);
+			}
+		  });
+		});
+	  });
+	</script>
+  
+</body>
+</html>

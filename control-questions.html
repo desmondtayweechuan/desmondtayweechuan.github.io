@@ -1,0 +1,148 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- open-iconic-bootstrap (icon set for bootstrap) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+  <!-- Custom css -->
+  <link href="css/imagehive.css" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+  <title>Image Hive - Control Questions</title>
+</head>
+
+<body class="text-center">
+  <noscript>
+         <h1>Please enable JavaScript to continue!</h1>
+      </noscript>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-faded">
+    <a class="navbar-brand" href="export.html"><img src="images/logo_hive.png" width="36"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="export.html">Export data</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="upload.html">Upload images</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="publish.html">Manage publications</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="control-questions.html">Manage control questions<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" name="logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mt-5 text-left">
+	<h4>Manage Control Questions</h4>
+    <div class="mb-4">
+      </i>Manage control questions here. Control questions are questions that have a known answer to them, this will be helpful for the ImageHive app in determining the reliability of players.<br>
+	  <b>WARNING! Insufficient control questions will cause app to crash! Ensure that at least 5 is uploaded.</b> 
+    </div>
+    <div class="mb-5">
+      <div class="input-group">
+        <input type="text" id="myInput" onkeyup="filterTable()" class="form-control" placeholder="Search by batch name or tags">
+        <div class="input-group-btn">
+          <button class="btn btn-search" type="submit">Search</button>
+        </div>
+      </div>
+    </div>
+	
+    <div class="float-right">
+      <a class="btn btn-add" href="add-control-question.html">Add a control question</a>
+      <button class="btn btn-delete" id="deleteAll">Delete All</button>
+    </div>
+    <br>
+		<table class="table table-striped mt-5" id="control_questions_table">
+            <thead>
+              <th onclick="sortTable(1)" class="row-image"></th>
+			  <th onclick="sortTable(2)" class="row-tags">Correct Tags</th>
+			  <th onclick="sortTable(3)" class="row-tags">Incorrect Tags</th>
+			  <th class="row-view">Edit</th>
+			  <th class="row-view">Delete</th>
+            </thead>
+            <tbody>
+            </tbody>
+         </table>
+	</div>
+          
+
+  <!-- View details Modal -->
+    <div class="text-left modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="editQuestionModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              <div class="mb-5">
+				<div class="row mb-3">				
+					<div class="col">
+						<label for="tags">Correct Tags</label>
+						<input type="text" class="form-control" name="correctTags" id="correctTags" value="Correct tags">
+					</div>
+				</div>
+			</div>
+			
+			
+              <div class="mb-5">
+				<div class="row mb-3">
+					<div class="col">
+					  <label for="tags">Incorrect Tags</label>
+					  <input type="text" class="form-control" name="incorrectTags" id="incorrectTags" value="I tags">
+					</div>
+				</div>
+			</div>
+		
+            <div class="row mb-3 light-blue">
+              <div class="col-6">
+			  </div>
+			  
+              <div class="col-6 text-right">
+                  <button class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+                  <button class="btn btn-update" data-dismiss="modal" id="controlUpdate">Update</button>
+              </div>
+            </div>	  
+			  
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/FileSaver.min.js"></script>
+  <script src="js/control-questions.js"></script>
+  <script src="js/logout.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+  <!-- Latest compiled and minified Locales -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+</body>
+
+</html>

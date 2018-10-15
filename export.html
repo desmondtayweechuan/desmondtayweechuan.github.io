@@ -1,0 +1,192 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- open-iconic-bootstrap (icon set for bootstrap) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+  <!-- Custom css -->
+  <link href="css/imagehive.css" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+  <title>Image Hive - Export</title>
+</head>
+
+<body class="text-center">
+  <noscript>
+         <h1>Please enable JavaScript to continue!</h1>
+      </noscript>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-faded">
+    <a class="navbar-brand" href="export.html"><img src="images/logo_hive.png" width="36"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="export.html">Export data<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="upload.html">Upload images</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="publish.html">Manage publications</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="control-questions.html">Manage control questions</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" name="logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mt-5 text-left">
+    <h4 id="adminWelcome">Welcome</h4>
+    <div class="mb-4">
+      </i>Export data collected on image batches here. They will be exported as JSON.
+    </div>
+    <div class="mb-5">
+      <div class="input-group">
+        <input type="text" id="myInput" onkeyup="filterTable()" class="form-control" placeholder="Search by batch name or tags">
+		<!-- To remove -->
+        <div class="input-group-btn">
+          <button class="btn btn-search" type="submit">Search</button>
+        </div>
+      </div>
+    </div>
+    <!-- TODO: Promise: Load all items before count -->
+    <!-- <div class="d-inline-block pt-2" id="numberOfBatches">0 Batches</div> -->
+    <div class="float-right">
+		<!-- <button class="btn btn-merge">Merge</button> -->
+		<button class="btn btn-export" id="exportJson">Export All</button>
+		<!-- <button class="btn btn-delete">Delete</button> -->
+    </div>
+    <br>
+    <table class="table table-striped mt-5" id="batch_table">
+      <thead>
+        <!-- <tr>
+                  <th class="row-checkbox"><input type="checkbox" id="select_all"></th>
+                  <th onclick="sortTable(1)" class="row-name">Batch Name</th>
+                  <th onclick="sortTable(2)" class="row-no">No. of Images</th>
+                  <th onclick="sortTable(3)" class="row-datetime">Upload Time</th>
+                  <th onclick="sortTable(4)" class="row-description">Description</th>
+                  <th onclick="sortTable(5)" class="row-tag">Tags</th>
+                  <th class="row-view"></th>
+                  </tr> -->
+        <tr>
+          <!-- <th class="row-checkbox"><input type="checkbox" id="select_all"></th> -->
+          <!-- <th onclick="sortTable(1)" class="row-key">Key</th>
+          <th onclick="sortTable(2)" class="row-name">Batch Name</th>
+          <th onclick="sortTable(3)" class="row-description">Description</th>
+          <th onclick="sortTable(4)" class="row-tags">Tags</th>
+          <th onclick="sortTable(5)" class="row-url">URL</th>
+          <th class="row-view"></th> -->
+          <th onclick="sortTable(1)">Batch Name</th>
+          <th onclick="sortTable(2)">Description</th>
+          <th onclick="sortTable(3)">Tags</th>
+          <th class="row-view">Export</th>
+          <th class="row-view">Details</th>
+          <th class="row-view">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+
+    <!-- View details Modal -->
+    <div class="modal fade" id="viewDetailsModal" tabindex="-1" role="dialog" aria-labelledby="viewDetailsModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close position-absolute" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+
+            <div class="row">
+              <div class="col-sm-6 mb-4 ">
+                <b>Batch Name</b> <br/>
+                <span id="details_batchname">Some name</span>
+              </div>
+              <div class="col-sm-6 mb-4 ">
+                <b>Uploaded on</b> <br/>
+                <span id="details_datetime">12/02/18</span>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-sm-12">
+                <b>Description</b> <br/>
+                <span id="details_description">Some description</span>
+              </div>
+            </div>
+            <div class="row mb-5">
+              <div class="col-sm-12">
+                <b>Tags</b> <br/>
+                <span id="details_tags">tag1, tag2, tag3, tag4</span>
+              </div>
+            </div>
+
+            <div class="row mb-3 light-blue">
+              <div class="col-6">
+                <div class="d-inline-block mr-5"><span id="details_image_count"></span> Images</div>
+              </div>
+			  <!--
+              <div class="col-6">
+                <button class="btn btn-export btn-export-batch float-right" id="exportBatchJson">Export Batch</button>
+              </div>
+			  -->
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped" id="batch_details_table">
+                <thead>
+                  <tr>
+                    <th class="row-image"></th>
+                    <th>File name</th>
+                    <th class="row-status">Status</th>
+                  </tr>
+                  <tr>
+                    <!-- <td><img src="images/beautiful-flower-leaf-1118409.jpg" /></td>
+                    <td>Flower.png</td>
+                    <td><span class="status-dot"></span>Published</td>
+                    <td>12/02/2018</td> -->
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/FileSaver.min.js"></script>
+  <script src="js/logout.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+  <!-- Latest compiled and minified Locales -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+</body>
+
+</html>

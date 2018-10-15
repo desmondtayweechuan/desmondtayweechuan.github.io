@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- open-iconic-bootstrap (icon set for bootstrap) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+
+  <!-- custom css -->
+  <link href="css/imagehive.css" rel="stylesheet">
+
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+  <title>Image Hive - Upload</title>
+</head>
+
+<body class="text-center">
+  <noscript>
+    <h1>Please enable JavaScript to continue!</h1>
+  </noscript>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-faded">
+    <a class="navbar-brand" href="export.html"><img src="images/logo_hive.png" width="36"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="export.html">Export data</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="upload.html">Upload images<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+                  <a class="nav-link" href="publish.html">Manage publications</a>
+               </li>
+    <li class="nav-item">
+          <a class="nav-link" href="control-questions.html">Manage control questions</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <a class="nav-link" name="logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5 text-left">
+    <h4>Upload Images</h4>
+    <div class="mb-4">Only files with the following extensions are allowed: <i>png jpg jpeg</i></div>
+
+    <div class="form2">
+      <div class="form-group">
+        <label for="batchName">Batch name</label>
+        <input type="text" class="form-control" name="batchName" id="batchName" placeholder="E.g. Images of Hive">
+        <p class="error hide mt-2">Batch Name cannot be empty</p>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" rows="3" name="description" id="description" placeholder="E.g. My favourite hives"></textarea>
+      </div>
+      <div class="form-group mb-3">
+        <label for="tags">Add Tags</label>
+        <input type="text" class="form-control" name="tags" id="tags" placeholder="E.g. Hive, Images (use commas to separate each tag)">
+      </div>
+      <!-- Taken from: https://www.abeautifulsite.net/whipping-file-inputs-into-shape-with-bootstrap-3 -->
+      <div class="form-group">
+        <label for="description">Availability</label><br/>
+          <label class="radio-inline mr-2">
+            <input type="radio" name="radios" id="published" value="published" checked> Published
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="radios" id="hidden" value="hidden"> Hidden
+          </label>
+      </div>
+    <div class="input-group">
+        <label class="input-group-btn">
+                    <span class="btn btn-add">
+                        Browse&hellip; <input type="file" name="file-select" accept=".png, .jpg, .jpeg" multiple>
+                    </span>
+                </label>
+        <input type="text" class="form-control" name="selectedImage" id="selectedImage" placeholder="Select your image(s)" readonly>
+      </div>
+      <div class="error hide">You have to select at least 1 image</div>
+
+      <button class="btn mt-5" name="file-upload" onsubmit="return validateUploadForm()">Upload</button>
+      <a href="index.html" class="btn btn-cancel mt-5">Cancel</a>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/logout.js"></script>
+
+</body>
+
+<script>
+  $(function() {
+    $(document).on('change', ':file', function() {
+      var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function() {
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+          log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+        if (input.length) {
+          input.val(log);
+        } else {
+          if (log) alert(log);
+        }
+      });
+    });
+  });
+</script>
+
+</html>

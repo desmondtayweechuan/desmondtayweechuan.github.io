@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- open-iconic-bootstrap (icon set for bootstrap) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+
+	<!-- custom css -->
+	<link href="css/imagehive.css" rel="stylesheet">
+
+	<!-- font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+	<title>Image Hive - Sign in</title>
+</head>
+
+<body class="text-center">
+	<noscript>
+		<h1>Please enable JavaScript to continue!</h1>
+	</noscript>
+	<div class="form1">
+		<img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+		<img src="images/logo_hive.png" width="150" class="mb-2" />
+		<h4>SIGN IN TO IMAGE HIVE SYSTEM</h4>
+		<div class="mb-4">You are about to sign in to IMAGE HIVE admin system. This system is exclusive to IMAGE HIVE admin only.</div>
+
+		<label class="sr-only" for="signin-username">Username</label>
+		<div class="input-group mb-3 mr-sm-2">
+			<div class="input-group-prepend">
+				<div class="input-group-text"><span class="oi oi-person" title="person" aria-hidden="true"></span></div>
+			</div>
+			<input type="text" class="form-control" id="signin-username" placeholder="Username" name="email">
+			<span id="email-error" class="main-error"></span>
+		</div>
+
+		<label class="sr-only" for="signin-password">Username</label>
+		<div class="input-group mb-4 mr-sm-2">
+			<div class="input-group-prepend">
+				<div class="input-group-text"><span class="oi oi-lock-locked" title="lock" aria-hidden="true"></span></div>
+			</div>
+			<input type="password" class="form-control" id="signin-password" placeholder="Password" name="password">
+			<span id="password-error" class="main-error">
+        </div>
+
+    	<button class="btn btn-lg btn-block mb-3" id="main-cfm">Sign in</button>
+
+      <div><a href="forget-password.html">I forgot my password.<a/></div>
+
+      	<div>
+      		<button class="btn btn-lg btn-block mb-3" id="test">Test</button>
+      	</div>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+		<script src="js/firebase-config.js"></script>
+  	<script src="js/index.js"></script>
+    </body>
+</html>
