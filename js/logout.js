@@ -12,8 +12,8 @@ document.querySelector('[name="logout"]').addEventListener('click', () => {
 });
 
 //Handle Account Status
-firebase.auth().onAuthStateChanged(user => {
-    if (!user) {
-        window.location = 'index.html';
-    }
-});
+// firebase.auth().onAuthStateChanged(user => {
+//     if (!user) {
+//         window.location = 'index.html';
+//     }
+// });

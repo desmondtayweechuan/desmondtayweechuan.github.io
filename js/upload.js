@@ -3,7 +3,7 @@ document.querySelector('[name="file-select"]').addEventListener('change', handle
 document.querySelector('[name="file-upload"]').addEventListener('click', handleFileUploadSubmit);
 
 var count = 0;
-var uid = "";
+var uid = "0JyGKtIcPFcdVdybLwdVpiqZBvi1";
 var tagsArr = [];
 var batchName = "";
 var description = "";
@@ -13,13 +13,13 @@ var avail = "";
 var batchKey = "";
 
 // Get user uid for folder creation in storage
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-		uid = user.uid;
-	} else {
-		console.log("user is null");
-	}
-});
+// firebase.auth().onAuthStateChanged(user => {
+//     if (user) {
+// 		uid = user.uid;
+// 	} else {
+// 		console.log("user is null");
+// 	}
+// });
 
 // When user selects file, load it to array
 var imagesArr = [];
